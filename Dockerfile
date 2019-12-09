@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 USER root
 
@@ -65,11 +65,17 @@ RUN \
         ca-certificates \
         build-essential \
         pkg-config \
-        software-properties-common \
-        python-software-properties \
-        lsof \
+        software-properties-common
+        
+RUN add-apt-repository 'deb http://security.ubuntu.com/ubuntu xenial-security main' && \
+apt-get update
+
+RUN add-apt-repository ppa:apt-fast/stable
+
+RUN apt-get install -y --no-install-recommends lsof \
+        libcurl4 \
         net-tools \
-        curl libcurl3 \
+        curl \
         wget \
         cron \
         openssl \
@@ -107,14 +113,13 @@ RUN \
         libtiff-dev \
         libjpeg-dev \
         libpng-dev \
-        libpng12-dev \
         libjasper-dev \
         libglib2.0-0 \
         libxext6 \
         libsm6 \
         libxext-dev \
         libxrender1 \
-        libzmq-dev \
+        libzmq3-dev \
         # protobuffer support
         protobuf-compiler \
         libprotobuf-dev \
@@ -133,6 +138,10 @@ RUN \
         unrar \
         bzip2 \
         lzop \
+        texlive-xetex \
+        texlive-generic-extra \
+        texlive-latex-extra \
+        texlive-fonts-recommended \        
         bsdtar \
         zlib1g-dev && \
     chmod -R a+rwx /usr/local/bin/ && \
@@ -168,7 +177,7 @@ RUN \
     touch /var/log/nginx/upstream.log && \
     cd $RESOURCES_PATH && \
     rm -r $RESOURCES_PATH"/openresty" && \
-    # Fix permissions
+    # Fifx permissions
     chmod -R a+rwx $RESOURCES_PATH && \
     # Cleanup
     clean-layer.sh
@@ -214,6 +223,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}
     /bin/bash ~/miniconda.sh -b -p $CONDA_DIR && \
     export PATH=$CONDA_DIR/bin:$PATH && \
     rm ~/miniconda.sh && \
+    $CONDA_DIR/bin/conda install -c anaconda setuptools && \
     # Update conda
     $CONDA_DIR/bin/conda update -y -n base -c defaults conda && \
     $CONDA_DIR/bin/conda install -y conda-build && \
@@ -244,6 +254,8 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 # There is nothing added yet to LD_LIBRARY_PATH, so we can overwrite
 ENV LD_LIBRARY_PATH=$CONDA_DIR/lib 
 
+RUN apt-get update -y
+RUN apt-get install -y gnupg-agent
 # Install node.js
 RUN \
     apt-get update && \
@@ -361,7 +373,6 @@ RUN \
     apt-get install -y --no-install-recommends gdebi && \
     # Search for files
     apt-get install -y --no-install-recommends catfish && \
-    apt-get install -y --no-install-recommends gnome-search-tool && \
     apt-get install -y --no-install-recommends font-manager && \
     # vs support for thunar
     apt-get install -y thunar-vcs-plugin && \
@@ -834,11 +845,13 @@ RUN \
         exit 0 ; \
     fi && \
     apt-get update && \
-    apt-get install  -y --no-install-recommends autojump git-flow csh libbz2-dev xclip libeigen3-dev clinfo && \
+    apt-get install  -y --no-install-recommends autojump git-flow && \
     # New Python Libraries:
     # https://pyviz.org/tools.html
     pip install --no-cache-dir \
                 catalyst \
+                fs \
+                speedtorch \
                 # 2,3MB hvplot \
                 # 3.1MB intake \
                 # 4.3MB hypertools \

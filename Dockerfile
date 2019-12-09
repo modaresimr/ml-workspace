@@ -366,20 +366,14 @@ RUN \
 # https://goodies.xfce.org/start
 # https://linux.die.net/man/1/
 RUN \
-    apt-get update 
-RUN \ 
-    apt-get install -y --no-install-recommends xfce4-terminal 
-#RUN \
-#    apt-get install -y --no-install-recommends --allow-unauthenticated xfce4-taskmanager 
-RUN \
+    apt-get update && \
+    apt-get install -y --no-install-recommends xfce4-terminal && \
+    apt-get install -y --no-install-recommends --allow-unauthenticated xfce4-taskmanager && \
     # Install gdebi deb installer
-    apt-get install -y --no-install-recommends gdebi
+    apt-get install -y --no-install-recommends gdebi && \
     # Search for files
-RUN \    
-    apt-get install -y --no-install-recommends catfish
-RUN \
-    apt-get install -y --no-install-recommends font-manager 
-RUN \    
+    apt-get install -y --no-install-recommends catfish && \
+    apt-get install -y --no-install-recommends font-manager && \
     # vs support for thunar
     apt-get install -y thunar-vcs-plugin && \
     # Streaming text editor for large files
@@ -392,8 +386,7 @@ RUN \
     # Install Archive/Compression Tools: https://wiki.ubuntuusers.de/Archivmanager/
     apt-get install -y p7zip p7zip-rar && \
     apt-get install -y --no-install-recommends thunar-archive-plugin && \
-    apt-get install -y xarchiver 
-RUN \
+    apt-get install -y xarchiver && \
     # DB Utils
     apt-get install -y --no-install-recommends sqlitebrowser && \
     # Install nautilus and support for sftp mounting

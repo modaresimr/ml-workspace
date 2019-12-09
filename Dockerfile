@@ -1081,6 +1081,19 @@ LABEL \
     "org.label-schema.vcs-ref"=$ARG_VCS_REF \
     "org.label-schema.build-date"=$ARG_BUILD_DATE
 
+RUN \
+    jupyter labextension install @jupyterlab/debugger && \
+    jupyter labextension install @jupyterlab/dataregistry-extension && \
+    pip install --pre jupyter-lsp && \
+    jupyter labextension install @krassowski/jupyterlab-lsp && \
+    pip install python-language-server[all] && \
+    jupyter labextension install @jupyterlab/dataregistry-extension && \
+    jupyter labextension install jupyterlab-kernelspy  && \
+    jupyter labextension install jupyterlab-python-file  && \
+    jupyter labextension install jupyterlab-system-monitor  && \
+    jupyter labextension install jupyterlab-topbar-extension  && \
+    jupyter labextension install jupyterlab_autoversion 
+
 # Removed - is run during startup since a few env variables are dynamically changed: RUN printenv > $HOME/.ssh/environment
 
 # This assures we have a volume mounted even if the user forgot to do bind mount.

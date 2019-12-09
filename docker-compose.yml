@@ -1,7 +1,9 @@
 version: 2
 services:
   ml-workspace:
-    image: ml-workspace
+    build: .
+    restart: unless-stopped
+    network_mode: "bridge"
     ports:
     - "8085:8080"
     volumes:

@@ -373,9 +373,11 @@ RUN \
 #    apt-get install -y --no-install-recommends --allow-unauthenticated xfce4-taskmanager 
 RUN \
     # Install gdebi deb installer
-    apt-get install -y --no-install-recommends gdebi && \
+    apt-get install -y --no-install-recommends gdebi
     # Search for files
-    apt-get install -y --no-install-recommends catfish && \
+RUN \    
+    apt-get install -y --no-install-recommends catfish
+RUN \
     apt-get install -y --no-install-recommends font-manager 
 RUN \    
     # vs support for thunar

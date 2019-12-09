@@ -366,8 +366,10 @@ RUN \
 # https://goodies.xfce.org/start
 # https://linux.die.net/man/1/
 RUN \
-    apt-get update && \
-    apt-get install -y --no-install-recommends xfce4-terminal && \
+    apt-get update 
+RUN \ 
+    apt-get install -y --no-install-recommends xfce4-terminal 
+RUN \
     apt-get install -y --no-install-recommends --allow-unauthenticated xfce4-taskmanager 
 RUN \
     # Install gdebi deb installer

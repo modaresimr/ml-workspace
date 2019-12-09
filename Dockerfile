@@ -373,7 +373,8 @@ RUN \
     apt-get install -y --no-install-recommends gdebi && \
     # Search for files
     apt-get install -y --no-install-recommends catfish && \
-    apt-get install -y --no-install-recommends font-manager && \
+    apt-get install -y --no-install-recommends font-manager 
+RUN \    
     # vs support for thunar
     apt-get install -y thunar-vcs-plugin && \
     # Streaming text editor for large files
@@ -386,7 +387,8 @@ RUN \
     # Install Archive/Compression Tools: https://wiki.ubuntuusers.de/Archivmanager/
     apt-get install -y p7zip p7zip-rar && \
     apt-get install -y --no-install-recommends thunar-archive-plugin && \
-    apt-get install -y xarchiver && \
+    apt-get install -y xarchiver 
+RUN \
     # DB Utils
     apt-get install -y --no-install-recommends sqlitebrowser && \
     # Install nautilus and support for sftp mounting

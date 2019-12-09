@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ml-workspace:
+    image: ml-workspace
+    ports:
+    - "8085:8080"
+    volumes:
+    - ml-workspace:/workspace
+    
